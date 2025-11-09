@@ -5,10 +5,11 @@ import "dotenv/config";
 
 import { config } from "./config";
 import { errorHandler, notFoundHandler } from "./middleware/error-handler";
-import { apiRateLimiter } from "./middleware/rate-limit";
+import { apiRateLimiter, authRateLimiter } from "./middleware/rate-limit";
 import { log } from "./utils/logger";
+import { authRouter } from "./routes/auth";
 
-// Import your routes here
+// Import additional routes here
 // import { exampleRouter } from "./routes/example";
 
 const app = express();
@@ -26,7 +27,10 @@ app.use(express.json());
 app.use(apiRateLimiter);
 
 // Routes
-// Add your routes here
+// Authentication routes with stricter rate limiting
+app.use("/api/auth", authRateLimiter, authRouter);
+
+// Add additional routes here
 // app.use("/api/example", exampleRouter);
 
 app.get("/health", (_req, res) => {
