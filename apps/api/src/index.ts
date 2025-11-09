@@ -6,8 +6,8 @@ import "dotenv/config";
 import { config } from "./config";
 import { errorHandler, notFoundHandler } from "./middleware/error-handler";
 import { apiRateLimiter, authRateLimiter } from "./middleware/rate-limit";
-import { log } from "./utils/logger";
 import { authRouter } from "./routes/auth";
+import { log } from "./utils/logger";
 
 // Import additional routes here
 // import { exampleRouter } from "./routes/example";

@@ -1,15 +1,16 @@
 import bcrypt from "bcrypt";
-import jwt, { SignOptions } from "jsonwebtoken";
+import type { SignOptions } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 import { config } from "../config";
-import { log } from "../utils/logger";
+import { User } from "../models/User";
+import type { JwtPayload, UserProfileResponse } from "../types/api.types";
 import {
   UnauthorizedError,
   InternalServerError,
   ConflictError,
 } from "../utils/error";
-import { User } from "../models/User";
-import type { JwtPayload, UserProfileResponse } from "../types/api.types";
+import { log } from "../utils/logger";
 
 /**
  * Auth Service

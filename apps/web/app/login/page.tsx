@@ -22,7 +22,7 @@ export default function LoginPage() {
       const { token } = await authApi.login({ email, password });
       setToken(token);
       router.push('/dashboard');
-    } catch (err) {
+    } catch {
       setError('Invalid email or password');
     } finally {
       setIsLoading(false);

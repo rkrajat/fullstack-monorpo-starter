@@ -1,11 +1,12 @@
 import { Router, type Request, type Response } from "express";
+
 import { authenticateJWT } from "../middleware/auth";
 import { validateBody } from "../middleware/validate";
 import { authService } from "../services/auth.service";
-import { registerSchema, loginSchema } from "../validators/auth.validator";
+import type { LoginRequestBody, RegisterRequestBody } from "../types/api.types";
 import { log } from "../utils/logger";
 import { sendSuccess, sendUnauthorized, sendInternalError, sendCreated } from "../utils/response";
-import type { LoginRequestBody, RegisterRequestBody } from "../types/api.types";
+import { registerSchema, loginSchema } from "../validators/auth.validator";
 
 const router = Router();
 
