@@ -118,180 +118,63 @@ The services will be available at:
 
 ## 🔧 Available Scripts
 
-### Root Level
-
 ```bash
-pnpm dev          # Start all services in development mode
+# Development
+pnpm dev          # Start all services (frontend + backend)
 pnpm dev:web      # Start frontend only
 pnpm dev:api      # Start backend only
+
+# Production
 pnpm build        # Build all packages and apps
-pnpm lint         # Lint all packages and apps
+pnpm start        # Start production servers
+
+# Code Quality
+pnpm lint         # Lint all packages
 pnpm typecheck    # Type check all TypeScript code
 pnpm clean        # Clean build artifacts
 ```
 
-### Frontend (apps/web)
-
-```bash
-pnpm dev          # Start Next.js dev server
-pnpm build        # Build for production
-pnpm start        # Start production server
-pnpm lint         # Lint frontend code
-pnpm typecheck    # Type check frontend
-```
-
-### Backend (apps/api)
-
-```bash
-pnpm dev          # Start Express dev server with hot reload
-pnpm build        # Build TypeScript to JavaScript
-pnpm start        # Start production server
-pnpm lint         # Lint backend code
-pnpm typecheck    # Type check backend
-```
-
 ## 📦 Adding Dependencies
 
-### Workspace Root
 ```bash
+# Workspace root
 pnpm add -w <package-name>
-```
 
-### Specific App/Package
-```bash
+# Specific app/package
 pnpm add <package-name> --filter=web
 pnpm add <package-name> --filter=api
-```
 
-### Dev Dependencies
-```bash
+# Dev dependencies
 pnpm add -D <package-name> --filter=web
 ```
 
-## 🎨 Adding UI Components
+## 📚 Next Steps
 
-This template uses shadcn/ui. To add components:
+Once your development servers are running, check out the detailed documentation:
 
-```bash
-cd apps/web
-npx shadcn@latest add button
-npx shadcn@latest add card
-npx shadcn@latest add dialog
-```
+- **Frontend Development**: See [docs/FRONTEND.md](docs/FRONTEND.md) for:
+  - Creating pages and components
+  - Adding UI components with shadcn/ui
+  - Data fetching with TanStack Query
+  - Styling with Tailwind CSS
+  - Deployment to Vercel
 
-## 🗄️ Database Models
-
-Create Mongoose models in `apps/api/src/models/`:
-
-```typescript
-// apps/api/src/models/User.ts
-import mongoose from 'mongoose';
-
-const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  name: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now }
-});
-
-export const User = mongoose.model('User', userSchema);
-```
-
-## 🛣️ API Routes
-
-Create routes in `apps/api/src/routes/`:
-
-```typescript
-// apps/api/src/routes/users.ts
-import { Router } from 'express';
-import { sendSuccess } from '../utils/response';
-
-export const usersRouter = Router();
-
-usersRouter.get('/', async (req, res) => {
-  // Your logic here
-  sendSuccess(res, { users: [] });
-});
-```
-
-Register in `apps/api/src/index.ts`:
-```typescript
-import { usersRouter } from './routes/users';
-app.use('/api/users', usersRouter);
-```
-
-## 🔐 Authentication
-
-The template includes JWT setup. To implement authentication:
-
-1. Create auth routes in `apps/api/src/routes/auth.ts`
-2. Use the JWT utilities from `jsonwebtoken`
-3. Add auth middleware in `apps/api/src/middleware/auth.ts`
-4. Protect routes by applying the middleware
-
-Example middleware structure exists in the template.
-
-## ✅ Type Safety
-
-Share types between frontend and backend using the `@fullstack-monorepo/types` package:
-
-```typescript
-// packages/types/src/user.ts
-export type User = {
-  id: string;
-  email: string;
-  name: string;
-};
-
-// packages/types/src/index.ts
-export type { User } from './user';
-```
-
-Use in frontend:
-```typescript
-import type { User } from '@fullstack-monorepo/types';
-```
-
-Use in backend:
-```typescript
-import type { User } from '@fullstack-monorepo/types';
-```
-
-## 🚢 Deployment
-
-### Frontend (Vercel)
-1. Connect your repository to Vercel
-2. Set root directory to `apps/web`
-3. Add environment variables
-4. Deploy
-
-### Backend (Render/Railway/Fly.io)
-1. Create a new web service
-2. Set root directory to `apps/api`
-3. Build command: `pnpm build --filter=api`
-4. Start command: `pnpm start --filter=api`
-5. Add environment variables
-6. Deploy
-
-### Database (MongoDB Atlas)
-1. Create a cluster on MongoDB Atlas
-2. Get connection string
-3. Update `MONGODB_URI` in backend environment
-
-## 🧪 Testing
-
-Add your testing setup:
-- Jest for unit tests
-- Playwright for E2E tests
-- React Testing Library for component tests
+- **Backend Development**: See [docs/BACKEND.md](docs/BACKEND.md) for:
+  - Creating API routes and models
+  - Database setup with MongoDB
+  - Authentication with JWT
+  - Validation with Zod
+  - Deployment options
 
 ## 📝 Code Style
 
 The project enforces:
-- **TypeScript strict mode**
-- **ESLint** rules (no `any`, no default exports except Next.js pages)
-- **Prettier** for code formatting
-- Named exports only
-- Arrow functions only
+- TypeScript strict mode
+- ESLint rules (no `any`, no default exports except Next.js pages)
+- Named exports and arrow functions only
+- Consistent import ordering
+
+Run `pnpm lint` and `pnpm typecheck` to validate your code.
 
 ## 🤝 Contributing
 
@@ -304,13 +187,3 @@ The project enforces:
 ## 📄 License
 
 MIT
-
-## 🔗 Resources
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Express.js Documentation](https://expressjs.com/)
-- [Turborepo Documentation](https://turbo.build/repo/docs)
-- [pnpm Documentation](https://pnpm.io/)
-- [shadcn/ui Documentation](https://ui.shadcn.com/)
-- [TanStack Query Documentation](https://tanstack.com/query/latest)
-- [MongoDB Documentation](https://docs.mongodb.com/)
