@@ -14,7 +14,7 @@ const configSchema = z.object({
   // JWT Configuration
   jwt: z.object({
     secret: z.string().min(32, "JWT_SECRET must be at least 32 characters"),
-    expiresIn: z.string().default("24h"),
+    expiresIn: z.union([z.string(), z.number()]).default("24h"),
   }),
 
   // Frontend Configuration
